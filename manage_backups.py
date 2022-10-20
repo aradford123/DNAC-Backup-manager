@@ -24,9 +24,10 @@ def format_time(secs):
 def show_backups(dnac):
     #logger.debug(data)
     result = dnac.custom_caller.call_api(method="GET", resource_path="api/system/v1/maglev/backup")
+    print("{:40s}{:30s}{:30s}{}".format("Backup-id","name","timestamp","time"))
     for l in result.response:
         formatted = format_time(l['start_timestamp'])
-        print("{}:{}:{}:{}".format(l['backup_id'],l['description'],l['start_timestamp'], formatted))
+        print("{:40s}{:30s}{:30s}{}".format(l['backup_id'],l['description'],str(l['start_timestamp']), formatted))
 
 def delete(dnac, delete_id):
     result = dnac.custom_caller.call_api(method="DELETE", resource_path="api/system/v1/maglev/backup/{}".format(delete_id))
