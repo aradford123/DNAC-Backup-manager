@@ -28,3 +28,32 @@ pip install -U pip
 pip install -r requirements.txt
 ```
 
+Edit the dnac_vars file to add your DNAC and credential.  You can also use environment variables.
+
+## Listing the backups
+Run the manage_backup command with no arguments
+
+```
+./manage_backups.py 
+Backup-id                               name                          timestamp                     time
+70a0a277-8ff6-48b3-8a7b-832eef048c5a    testing                       1666243182.6503744            2022-10-20 16:19:42
+```
+
+## Deleting old backups
+By default backups older than a week are deleted.  To delete a backup more recently, use the --older <secs> argument.  For example, older than 1 hour, you can use --older 3600
+  
+  ```
+./manage_backups.py --older 3600
+delete 70a0a277-8ff6-48b3-8a7b-832eef048c5a 2022-10-20 16:19:42
+{'response': {'status': 'ok', 'message': "Deleted backup (backup_id='70a0a277-8ff6-48b3-8a7b-832eef048c5a')"}, 'version': '1.5.1'}
+```
+  
+  ## Deleting a specific backup
+  Provide a backup-id and just that back up will be deleted.
+  
+  ```
+./manage_backups.py --delete 70a0a277-8ff6-48b3-8a7b-832eef048c5a
+{'response': {'status': 'ok', 'message': "Deleted backup (backup_id='70a0a277-8ff6-48b3-8a7b-832eef048c5a')"}, 'version': '1.5.1'}
+````
+Note: This API call does not return an error if the backup does not exist.. so check carefully.
+  
